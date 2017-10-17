@@ -1,16 +1,15 @@
 import {
   START, SUCCESS, FAIL,
-  LOAD_CUSTOMERS
+  LOAD_PRODUCTS
 } from '../constants'
 
 import {Record} from 'immutable'
 import {arrToMap} from '../helpers'
 
-const customerRecord = Record({
+const productRecord = Record({
   id: null,
   name: null,
-  phone: null,
-  address: null
+  price: null
 })
 
 const ReducerState = Record({
@@ -21,11 +20,11 @@ const ReducerState = Record({
 
 export default ( state = new ReducerState, {type, response} ) => {
   switch(type){
-    case LOAD_CUSTOMERS + START:
+    case LOAD_PRODUCTS + START:
       return state.set('loading', true);
-    case LOAD_CUSTOMERS + SUCCESS:
+    case LOAD_PRODUCTS + SUCCESS:
       return state
-        .set('entities', arrToMap(response, customerRecord))
+        .set('entities', arrToMap(response, productRecord))
         .set('loading', false)
         .set('loaded', true)
     default:

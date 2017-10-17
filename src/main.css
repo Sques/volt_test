@@ -1,0 +1,14 @@
+.btn-create-center{
+  margin: 23px 23px 10px 23px;
+}
+
+.crud-icon:hover{
+  cursor: pointer;
+}
+
+.crud-icon .glyphicon-pencil {
+  color: blue;
+}
+.crud-icon .glyphicon-remove {
+  color: red;
+}

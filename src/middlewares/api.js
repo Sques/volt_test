@@ -1,16 +1,15 @@
-export default store => next => action => {
-  const {callAPI, type, ...rest} = action
+import {
+  START, SUCCESS, FAIL
+} from '../constants'
+
+export default store => next => ({callAPI, type, ...rest}) => {
 
   if (!callAPI) return next(action)
 
-  console.log('middleware api')
+  next({...rest, type: type + START})
 
-  /*next({...rest, type: type + START})
-
-  setTimeout(() => {
-    fetch(callAPI)
-      .then(res => res.json())
-      .then(response => next({...rest, type: type + SUCCESS, response}))
-      .catch(error => next({...rest, type: type + FAIL, error}))
-  }, 1000)*/
+  fetch(callAPI)
+    .then(res => res.json())
+    .then(response => next({...rest, type: type + SUCCESS, response}))
+    .catch(error => next({...rest, type: type + FAIL, error}))
 }

@@ -10,6 +10,8 @@ import Invoices from './Invoices'
 import Customers from './Customers'
 import Products from './Products'
 
+import '../main.css'
+
 class Root extends Component{
 
   notFoundPage = () => {
