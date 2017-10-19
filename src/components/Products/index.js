@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Helmet} from "react-helmet";
 import {connect} from 'react-redux'
 import {Button, Table} from 'react-bootstrap'
 
@@ -32,6 +33,11 @@ class Products extends Component {
 
     return (
       <div>
+
+        <Helmet>
+          <title>Products</title>
+        </Helmet>
+
         <h1 className="pull-left">Customer list</h1>
         <Button bsClass="btn btn-default btn-create-center">Create</Button>
 
