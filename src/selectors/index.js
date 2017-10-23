@@ -1,17 +1,5 @@
 import {mapToArr} from '../helpers'
 
-export const getCustomers = (state) => mapToArr(state.customers.entities);
-export const getProducts = (state, type) => {
-  switch(type){
-    case 'obj':
-      return state.products.entities.toObject()
-
-    default:
-      return mapToArr(state.products.entities);
-  }
-}
-export const getInvoices = (state) => mapToArr(state.invoices.entities);
-
 export const getEntities = (state, entity, dataType) =>{
   switch(dataType){
     case 'object':

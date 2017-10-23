@@ -3,58 +3,48 @@ import {connect} from 'react-redux'
 import {Table, Button, Modal} from 'react-bootstrap'
 
 import {loadCustomers, deleteCustomer} from '../../AC'
-import {getCustomers} from '../../selectors'
+import {getEntities} from '../../selectors'
 
 import CustomersItem from './CustomersItem'
-import CustomersFormUpdate from './CustomersFormUpdate'
+import FormCustomerUpdate from './FormCustomerUpdate'
 import Loader from '../Loader'
+
+const initialState = {
+  showModalDeleteItem: false,
+  deleteItemId: null,
+  showModalUpdateItem: false,
+  updateItem: null
+}
 
 class CustomersList extends Component {
 
-  state = {
-    showModalDeleteItem: false,
-    deleteItemId: null,
-    showModalUpdateItem: false,
-    updateItem: null
-  }
+  state = initialState
 
   componentDidMount(){
     this.props.loadCustomers();
   }
 
-  openModalDeleteItem = (id) => {
-    return this.setState({
+  openModalDeleteItem = id => (
+    this.setState({
       showModalDeleteItem: true,
       deleteItemId: id
     })
-  }
+  )
+
+  openModalUpdateItem = customer => (
+    this.setState({
+      showModalUpdateItem: true,
+      updateItem: customer
+    })
+  )
+
+  closeModal = () => this.setState(initialState)
 
   deleteItem = () => {
     const id = this.state.deleteItemId
     if (!id) return null
     this.props.deleteCustomer(id)
-    this.closeModalDeleteItem();
-  }
-
-  closeModalDeleteItem = () =>{
-    return this.setState({
-      showModalDeleteItem: false,
-      deleteItemId: null
-    })
-  }
-
-  openModalUpdateItem = (customer) => {
-    return this.setState({
-      showModalUpdateItem: true,
-      updateItem: customer
-    })
-  }
-
-  closeModalUpdateItem = () =>{
-    return this.setState({
-      showModalUpdateItem: false,
-      updateItem: null
-    })
+    this.setState(initialState)
   }
 
   render(){
@@ -62,8 +52,7 @@ class CustomersList extends Component {
     const {customers, loading, deleteCustomer} = this.props;
 
     if (loading) return <Loader/>
-
-    if (!customers && !customers.length) return null
+    if (customers && !customers.length) return <h4>No items</h4>
 
     const customerItems = customers.map(customer => (
       <CustomersItem
@@ -89,11 +78,11 @@ class CustomersList extends Component {
           </tr>
           </thead>
           <tbody>
-          {customerItems}
+            {customerItems}
           </tbody>
         </Table>
 
-        <Modal show={this.state.showModalDeleteItem} onHide={this.closeModalDeleteItem}>
+        <Modal show={this.state.showModalDeleteItem} onHide={this.closeModal}>
           <Modal.Header closeButton>
             <Modal.Title bsClass="modal-title text-center">Delete Customer</Modal.Title>
           </Modal.Header>
@@ -101,7 +90,7 @@ class CustomersList extends Component {
             Are you sure?
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.closeModalDeleteItem}>Cancel</Button>
+            <Button onClick={this.closeModal}>Cancel</Button>
             <Button bsStyle={'danger'} onClick={this.deleteItem}>Delete</Button>
           </Modal.Footer>
         </Modal>
@@ -111,7 +100,7 @@ class CustomersList extends Component {
             <Modal.Title bsClass="modal-title text-center">Update Customer</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <CustomersFormUpdate item={this.state.updateItem} handleUpdateModal={this.closeModalUpdateItem} />
+            <FormCustomerUpdate item={this.state.updateItem} handleUpdateModal={this.closeModal} />
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.closeModalUpdateItem}>Cancel</Button>
@@ -125,9 +114,9 @@ class CustomersList extends Component {
 
 export default connect(
   (state) => {
-    const {loading} = state
+    const {loading} = state.customers
     return {
-      customers: getCustomers(state),
+      customers: getEntities(state, 'customers'),
       loading
     }
   },

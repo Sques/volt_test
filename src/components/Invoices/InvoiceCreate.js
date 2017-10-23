@@ -4,7 +4,7 @@ import {Button, FormGroup, Col, FormControl, ControlLabel} from 'react-bootstrap
 import Select from 'react-select'
 
 import {
-  getProducts, getCustomers,
+  getEntities,
   getInvoiceTotalPrice, getInvoiceProductList
 } from '../../selectors'
 import {
@@ -131,9 +131,9 @@ class InvoiceCreate extends Component {
 
 export default connect(
   (state) => ({
-    customers: getCustomers(state),
-    arProducts: getProducts(state, 'arr'),
-    objProducts: getProducts(state, 'obj'),
+    customers: getEntities(state, 'customers'),
+    arProducts: getEntities(state, 'products'),
+    objProducts: getEntities(state, 'products', 'object'),
     invoice: state.invoiceDetail,
     invoiceList: getInvoiceProductList(state),
     totalPrice: getInvoiceTotalPrice(state)

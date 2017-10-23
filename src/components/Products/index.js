@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Button, Table} from 'react-bootstrap'
 
 import { loadProducts } from '../../AC'
-import { getProducts } from '../../selectors'
+import { getEntities } from '../../selectors'
 
 import Loader from '../Loader'
 
@@ -19,7 +19,7 @@ class Products extends Component {
 
     if (loading) return <Loader/>
 
-    if (products && products.length) console.log('Render Products', products)
+    if (products && !products.length) return <h4>No items</h4>
 
     const productItems = products.map(({id, name, price}) => (
       <tr key={id}>
@@ -64,7 +64,7 @@ export default connect(
   (state) => {
     const {loading} = state
     return {
-      products: getProducts(state),
+      products: getEntities(state, 'products'),
       loading
     }
   },
