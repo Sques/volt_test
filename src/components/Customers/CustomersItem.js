@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types'
 
 class CustomersItem extends Component{
 
@@ -25,6 +26,13 @@ class CustomersItem extends Component{
       </tr>
     )
   }
+}
+
+CustomersItem.PropTypes = {
+  //from props
+  customer: PropTypes.array.isRequired,
+  handleDeleteModal: PropTypes.func.isRequired,
+  handleUpdateModal: PropTypes.func.isRequired
 }
 
 export default CustomersItem;

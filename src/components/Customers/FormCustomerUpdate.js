@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {updateCustomer} from '../../AC'
 
@@ -71,6 +72,12 @@ class CustomersAddForm extends Component {
       </form>
     );
   }
+}
+
+CustomersAddForm.propTypes = {
+  //from props
+  item: PropTypes.array.isRequired,
+  handleUpdateModal: PropTypes.func.isRequired
 }
 
 export default connect(

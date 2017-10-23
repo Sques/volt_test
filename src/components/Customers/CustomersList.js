@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Table, Button, Modal} from 'react-bootstrap'
 
@@ -110,6 +111,12 @@ class CustomersList extends Component {
       </div>
     );
   }
+}
+
+CustomersList.propTypes = {
+  //from connect
+  customers: PropTypes.array.isRequired,
+  loading: PropTypes.bool
 }
 
 export default connect(

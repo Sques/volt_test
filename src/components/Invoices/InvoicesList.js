@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Table} from 'react-bootstrap'
 
@@ -55,6 +56,14 @@ class InvoicesList extends Component {
       </Table>
     );
   }
+}
+
+InvoicesList.propTypes = {
+  //from connect
+  customers: PropTypes.object.isRequired,
+  customersLoading: PropTypes.bool,
+  invoices: PropTypes.array.isRequired,
+  invoicesLoading: PropTypes.bool
 }
 
 export default connect(

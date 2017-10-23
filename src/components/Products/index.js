@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
-import {Helmet} from "react-helmet";
+import React, {Component} from 'react'
+import PropTypes from 'prop-types';
+import {Helmet} from "react-helmet"
 import {connect} from 'react-redux'
 import {Button, Table} from 'react-bootstrap'
 
@@ -58,6 +59,12 @@ class Products extends Component {
       </div>
     );
   }
+}
+
+Products.propTypes = {
+  //from connect
+  products: PropTypes.array.isRequired,
+  loading: PropTypes.string
 }
 
 export default connect(

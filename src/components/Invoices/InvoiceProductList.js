@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Table, FormControl} from 'react-bootstrap'
 
@@ -54,7 +55,13 @@ class InvoiceProductList extends Component {
   deleteItem = id => () => this.props.deleteInvoiceProduct(id)
 }
 
+InvoiceProductList.propTypes = {
+  //from props
+  items: PropTypes.array.isRequired
+};
+
 export default connect(
   null,
   { deleteInvoiceProduct, changeInvoiceProductQty }
 )(InvoiceProductList);
+

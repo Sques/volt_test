@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Button, FormGroup, Col, FormControl, ControlLabel} from 'react-bootstrap'
 import Select from 'react-select'
@@ -127,6 +128,16 @@ class InvoiceCreate extends Component {
     addInvoice(invoice, totalPrice, invoiceList)
   }
 
+}
+
+InvoiceCreate.propTypes = {
+  //from connect
+  customers: PropTypes.array.isRequired,
+  arProducts: PropTypes.array.isRequired,
+  objProducts: PropTypes.object.isRequired,
+  invoice: PropTypes.object.isRequired,
+  invoiceList: PropTypes.array.isRequired,
+  totalPrice: PropTypes.number.isRequired,
 }
 
 export default connect(

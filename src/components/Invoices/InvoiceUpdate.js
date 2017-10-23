@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
-class InvoiceCreate extends Component {
+class InvoiceUpdate extends Component {
   render(){
     return (
       <div>EDIT INVOICE WITH ID: {this.props.id}</div>
@@ -8,4 +9,9 @@ class InvoiceCreate extends Component {
   }
 }
 
-export default InvoiceCreate;
+InvoiceUpdate.propTypes = {
+  //from props
+  id: PropTypes.string.isRequired
+};
+
+export default InvoiceUpdate;
