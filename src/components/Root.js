@@ -1,27 +1,27 @@
 import React, { Component } from 'react';
 import store from '../store'
 import {Provider} from 'react-redux'
-import {BrowserRouter, Route, NavLink, Switch} from 'react-router-dom'
+import {Router, Route, NavLink, Switch} from 'react-router-dom'
 import {LinkContainer} from 'react-router-bootstrap'
-
 import {Navbar, Nav, NavItem, Grid, Row} from 'react-bootstrap'
 
 import Invoices from './Invoices'
+import InvoiceCreate from './Invoices/InvoiceCreate'
+import InvoiceUpdate from './Invoices/InvoiceUpdate'
 import Customers from './Customers'
 import Products from './Products'
 
+import history from '../history'
 import '../main.css'
+import 'react-select/dist/react-select.css';
 
 class Root extends Component{
 
-  notFoundPage = () => {
-    console.log('404');
-    return <h1>404</h1>
-  }
+  notFoundPage = () => <h1>Page not found</h1>
 
   render(){
     return (
-      <BrowserRouter>
+      <Router history={history}>
         <Provider store = {store}>
           <div>
 
@@ -47,6 +47,8 @@ class Root extends Component{
             <Grid>
               <Row className="show-grid">
                 <Switch>
+                  <Route path = "/invoices/new" component = {InvoiceCreate} exact />
+                  <Route path = "/invoices/:id/edit" render = {this.getInvoicesEditById} exact />
                   <Route path = "/invoices" component = {Invoices} />
                   <Route path = "/customers" component = {Customers} />
                   <Route path = "/products" component = {Products} />
@@ -57,8 +59,13 @@ class Root extends Component{
 
           </div>
         </Provider>
-      </BrowserRouter>
+      </Router>
     );
+  }
+
+  getInvoicesEditById= ({match}) => {
+    const {id} = match.params
+    return <InvoiceUpdate id = {id} />
   }
 
 }

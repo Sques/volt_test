@@ -6,7 +6,7 @@ import {loadCustomers, deleteCustomer} from '../../AC'
 import {getCustomers} from '../../selectors'
 
 import CustomersItem from './CustomersItem'
-import CustomersUpdateForm from './CustomersUpdateForm'
+import CustomersFormUpdate from './CustomersFormUpdate'
 import Loader from '../Loader'
 
 class CustomersList extends Component {
@@ -111,7 +111,7 @@ class CustomersList extends Component {
             <Modal.Title bsClass="modal-title text-center">Update Customer</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <CustomersUpdateForm item={this.state.updateItem} handleUpdateModal={this.closeModalUpdateItem} />
+            <CustomersFormUpdate item={this.state.updateItem} handleUpdateModal={this.closeModalUpdateItem} />
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.closeModalUpdateItem}>Cancel</Button>

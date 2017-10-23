@@ -22,7 +22,8 @@ const ReducerState = Record({
 export default ( state = new ReducerState, {type, payload, response} ) => {
   switch(type){
     case LOAD_CUSTOMERS + START:
-      return state.set('loading', true);
+      return state
+        .set('loading', true);
 
     case LOAD_CUSTOMERS + SUCCESS:
       return state
@@ -31,15 +32,16 @@ export default ( state = new ReducerState, {type, payload, response} ) => {
         .set('loaded', true)
 
     case ADD_CUSTOMER + SUCCESS:
-      return state.setIn(['entities', response.id], new customerRecord(response))
+      return state
+        .setIn(['entities', response.id], new customerRecord(response))
 
     case DELETE_CUSTOMER + SUCCESS:
-      console.log(response);
-      return state.deleteIn(['entities', response.id])
+      return state
+        .deleteIn(['entities', response.id])
 
     case UPDATE_CUSTOMER + SUCCESS:
-      console.log(UPDATE_CUSTOMER + SUCCESS, response);
-      return state.setIn(['entities', response.id], new customerRecord(response))
+      return state
+        .setIn(['entities', response.id], new customerRecord(response))
 
     default:
       return state

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
-import {updateCustomer} from '../../AC'
+import {addCustomer} from '../../AC'
 
 import {Col, FormGroup, FormControl, ControlLabel, Button} from 'react-bootstrap'
 
@@ -12,11 +12,7 @@ const initialState = {
 
 class CustomersAddForm extends Component {
 
-  constructor(props) {
-    super(props);
-    const {id, name, address, phone} = this.props.item
-    this.state = {id, name, address, phone};
-  }
+  state = initialState
 
   handleChange = type => ev => {
     const {value} = ev.target
@@ -27,9 +23,7 @@ class CustomersAddForm extends Component {
 
   handleSubmit = ev => {
     ev.preventDefault()
-    const {updateCustomer, handleUpdateModal} = this.props
-    updateCustomer(this.state)
-    handleUpdateModal();
+    this.props.addCustomer(this.state)
     this.setState(initialState)
   }
 
@@ -65,7 +59,7 @@ class CustomersAddForm extends Component {
 
         <FormGroup>
           <Col smOffset={2} sm={10}>
-            <Button bsClass="btn btn-primary pull-right" type="submit">Update Customer</Button>
+            <Button bsClass="btn btn-success pull-right" type="submit">Add Customer</Button>
           </Col>
         </FormGroup>
       </form>
@@ -75,7 +69,5 @@ class CustomersAddForm extends Component {
 
 export default connect(
   null,
-  (dispatch) => ({
-    updateCustomer: (customer) => dispatch(updateCustomer(customer))
-  })
+  { addCustomer }
 )(CustomersAddForm);

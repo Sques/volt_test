@@ -3,7 +3,7 @@ import {Helmet} from "react-helmet";
 import {Button, Modal} from 'react-bootstrap'
 
 import CustomersList from './CustomersList'
-import CustomersAddForm from './CustomersAddForm'
+import CustomersFormAdd from './CustomersFormAdd'
 
 class Customers extends Component {
 
@@ -34,7 +34,7 @@ class Customers extends Component {
             <Modal.Title bsClass="modal-title text-center">Add Customer</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <CustomersAddForm />
+            <CustomersFormAdd />
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.closeModalAddItem}>Close</Button>
